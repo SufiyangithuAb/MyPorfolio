@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ME.EXE</title>
+
+    <link rel="stylesheet" href="assets/css/boot.css">
+    <script defer src="assets/js/boot.js"></script>
+</head>
+<body>
+
+    <!-- Background Video -->
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="assets/video/background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Welcome Voice -->
+    <audio id="welcomeVoice" preload="auto">
+        <source src="assets/audio/welcome.wav" type="audio/wav">
+        Your browser does not support audio.
+    </audio>
+
+    <div class="overlay"></div>
+
+    <div class="boot-container">
+        <h1 class="title">ME<span>.EXE</span></h1>
+
+        <p class="subtitle" id="subtitle"></p>
+
+        <div class="boot-logs" id="bootLogs"></div>
+
+        <!-- LOCKED UNTIL SYSTEM READY -->
+        <div class="buttons locked" id="buttons">
+            <a href="home.html" class="btn primary">Explore</a>
+            <a href="about.php" class="btn secondary">System Info</a>
+        </div>
+
+        <p class="hint" id="hint">System loading...</p>
+    </div>
+
+</body>
+</html>

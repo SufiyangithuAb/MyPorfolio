@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ME.EXE | Projects</title>
+    <link rel="stylesheet" href="assets/css/projects.css">
+</head>
+<body>
+
+<header class="projects-header">
+    <a href="home.html" class="back-link">← Return to System</a>
+    <div class="header-text">
+        <h1>&gt; Installed Modules</h1>
+        <p>Verified projects built by the system</p>
+    </div>
+</header>
+
+<main class="modules">
+
+    <!-- PROJECT 1 -->
+    <div class="module active" data-tags="java backend android dsa php problem">
+        <div class="module-left">
+            <span class="status success">✓</span>
+            <h2>QuickBuy</h2>
+            <p class="desc">
+                Android shopping application with authentication and scalable backend.
+            </p>
+            <div class="tech">
+                <span>Java</span>
+                <span>DSA</span>
+                <span>XML</span>
+                <span>Firebase</span>
+                <span>Android Studio</span>
+                <span>PHP</span>
+            </div>
+        </div>
+        <div class="module-right">
+            <a href="quickbuy.html" class="view-module">
+                View Module →
+            </a>
+        </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="module active" data-tags="csharp backend mysql problem">
+        <div class="module-left">
+            <span class="status success">✓</span>
+            <h2>Windows Messaging Platform</h2>
+            <p class="desc">
+                Desktop-based messaging system with database-backed communication.
+            </p>
+            <div class="tech">
+                <span>C#</span>
+                <span>.NET</span>
+                <span>MySQL</span>
+            </div>
+        </div>
+        <div class="module-right">
+            <a href="windows-chat.html" class="view-module">View Module →</a>
+        </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="module active" data-tags="django backend mysql web system problem">
+        <div class="module-left">
+            <span class="status success">✓</span>
+            <h2>Web Messaging Platform</h2>
+            <p class="desc">
+                Django-based messaging web application with MySQL backend.
+            </p>
+            <div class="tech">
+                <span>Django</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>MySQL</span>
+            </div>
+        </div>
+        <div class="module-right">
+            <a href="web-chat.html" class="view-module">View Module →</a>
+        </div>
+    </div>
+
+</main>
+
+<!-- MODAL -->
+<div class="module-modal" id="moduleModal">
+    <div class="module-box">
+        <span class="close" onclick="closeModule()">×</span>
+        <div id="moduleContent"></div>
+    </div>
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const filter = params.get("filter");
+
+    if (filter) {
+        document.querySelectorAll(".module").forEach(module => {
+            const tags = module.dataset.tags || "";
+            if (!tags.includes(filter)) {
+                module.style.opacity = "0.25";
+                module.style.transform = "scale(0.98)";
+            } else {
+                module.style.boxShadow = "0 0 30px rgba(255,79,163,0.4)";
+            }
+        });
+    }
+</script>
+
+
+<script src="assets/js/projects.js"></script>
+</body>
+</html>

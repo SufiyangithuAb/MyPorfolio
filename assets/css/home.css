@@ -1,0 +1,317 @@
+.top-links {
+    position: fixed;
+    top: 20px;
+    right: 70px; /* leaves space for moon icon */
+    z-index: 100;
+}
+
+.system-controls {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 200;
+}
+
+/* Signal text */
+.signal-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #ff4fa3;
+    text-decoration: none;
+    opacity: 0.85;
+    transition: 0.3s;
+}
+
+.signal-link:hover {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(255,79,163,0.6);
+}
+
+/* Moon button (slight polish) */
+.theme-toggle {
+    background: #fff;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+
+/* Make clouds behave like buttons */
+.cloud {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* Hover feedback already exists — enhance it slightly */
+.cloud:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 25px 50px rgba(214, 51, 132, 0.5);
+}
+
+/* Keyboard accessibility (VERY PRO) */
+.cloud:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(214, 51, 132, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* =====================
+   THEMES
+===================== */
+body.day {
+    background: linear-gradient(135deg, #ffffff, #ffe6f0);
+}
+
+body.night {
+    background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.6s ease;
+}
+
+/* =====================
+   SYSTEM CONTAINER
+===================== */
+.cloud-system {
+    position: relative;
+    width: 1000px;
+    height: 550px;
+}
+
+/* =====================
+   SVG CONNECTIONS
+===================== */
+.connections {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.connections line {
+    stroke: rgba(214, 51, 132, 0.4);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 6;
+}
+
+/* =====================
+   CENTER CARD (TOP LAYER)
+===================== */
+.center-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 26px 30px;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(214, 51, 132, 0.35);
+    z-index: 3;
+}
+
+.center-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.center-card h3 {
+    margin-top: 10px;
+    color: #d63384;
+}
+
+.center-card p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* =====================
+   CLOUD SHAPE
+===================== */
+.cloud {
+    position: absolute;
+    padding: 24px 42px;
+    background: white;
+    color: #d63384;
+    border-radius: 60px;
+    box-shadow: 0 12px 25px rgba(214, 51, 132, 0.25);
+    z-index: 1;
+    animation: drift 8s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Cloud bumps */
+.cloud::before,
+.cloud::after,
+.cloud span {
+    content: "";
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+
+.cloud::before {
+    width: 45px;
+    height: 45px;
+    top: -20px;
+    left: 30px;
+}
+
+.cloud::after {
+    width: 60px;
+    height: 60px;
+    top: -35px;
+    right: 30px;
+}
+
+.cloud span {
+    width: 50px;
+    height: 50px;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* =====================
+   HOVER EFFECT
+===================== */
+.cloud:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 25px 50px rgba(214, 51, 132, 0.5);
+}
+
+/* =====================
+   DRIFT ANIMATION
+===================== */
+@keyframes drift {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
+
+/* =====================
+   POSITIONS (SAFE GAP FROM CENTER)
+===================== */
+.cloud-a { top: 40px;  left: 200px; }
+.cloud-b { top: 90px;  right: 200px; }
+.cloud-c { top: 240px; right: 80px; }
+.cloud-d { bottom: 110px; right: 200px; }
+.cloud-e { bottom: 40px; left: 430px; }
+.cloud-f { bottom: 110px; left: 150px; }
+.cloud-g { top: 260px; left: 60px; }
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 1000px) {
+    .cloud-system {
+        transform: scale(0.85);
+    }
+}
+
+/* =====================
+   MODAL SYSTEM
+===================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 20;
+}
+
+body.night .modal-overlay {
+    background: rgba(10, 10, 20, 0.75);
+}
+
+/* ACTIVE */
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* MODAL BOX */
+.modal {
+    background: white;
+    width: 520px;
+    max-width: 90%;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+    transform: translateY(40px) scale(0.95);
+    transition: transform 0.4s ease;
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0) scale(1);
+}
+
+/* NIGHT MODE */
+body.night .modal {
+    background: #14142b;
+    color: #fff;
+}
+
+/* CLOSE BUTTON */
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 26px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #d63384;
+}
+
+/* MODAL CONTENT */
+.modal-content h2 {
+    color: #d63384;
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+.go-projects {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    text-decoration: none;
+    color: #d63384;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.go-projects:hover {
+    opacity: 1;
+    transform: translateX(4px);
+}

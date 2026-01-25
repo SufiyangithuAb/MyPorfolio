@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ME.EXE | Home</title>
+    <link rel="stylesheet" href="assets/css/home.css">
+</head>
+
+<body class="day">
+    <div class="system-controls">
+        <a href="signal.html" class="signal-link">Signal</a>
+        <button class="theme-toggle">🌙</button>
+    </div>
+
+<div class="cloud-system">
+
+    <!-- SVG CONNECTOR LINES -->
+    <svg class="connections" viewBox="0 0 1000 550">
+        <line x1="500" y1="275" x2="250" y2="90" />
+        <line x1="500" y1="275" x2="750" y2="120" />
+        <line x1="500" y1="275" x2="900" y2="280" />
+        <line x1="500" y1="275" x2="750" y2="420" />
+        <line x1="500" y1="275" x2="500" y2="500" />
+        <line x1="500" y1="275" x2="250" y2="420" />
+        <line x1="500" y1="275" x2="80"  y2="280" />
+    </svg>
+
+    <!-- CENTER PROFILE -->
+    <div class="center-card">
+        <img src="assets/images/me.jpg" alt="Sufiyan">
+        <h3>Mohammed Sufiyan</h3>
+        <p>MCA · 2nd Semester</p>
+    </div>
+
+    <!-- CLOUDS -->
+    <a href="projects.html?filter=java" class="cloud cloud-a">
+        <span></span>Java
+    </a>
+
+    <a href="projects.html?filter=dsa" class="cloud cloud-b">
+        <span></span>DSA
+    </a>
+
+    <a href="projects.html?filter=mysql" class="cloud cloud-c">
+        <span></span>MySQL
+    </a>
+
+    <a href="projects.html?filter=php" class="cloud cloud-d">
+        <span></span>PHP
+    </a>
+
+    <a href="projects.html?filter=backend" class="cloud cloud-e">
+        <span></span>Backend Developer
+    </a>
+
+    <a href="projects.html?filter=system" class="cloud cloud-f">
+        <span></span>System Thinker
+    </a>
+
+    <a href="projects.html?filter=problem" class="cloud cloud-g">
+        <span></span>Problem Solver
+    </a>
+
+</div>
+
+<!-- MODAL OVERLAY (INSIDE BODY ✅) -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+</div>
+
+<!-- THEME SCRIPT -->
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("night");
+    document.body.classList.toggle("day");
+}
+</script>
+
+<!-- MODAL SCRIPT -->
+<script>
+const modal = document.getElementById("modalOverlay");
+const modalContent = document.getElementById("modalContent");
+
+const contentData = {
+    java: {
+        title: "Java",
+        text: "Strong foundation in core Java, OOP principles, and backend logic. Used in academic and real-world projects."
+    },
+    dsa: {
+        title: "Data Structures & Algorithms",
+        text: "Problem-solving using arrays, stacks, queues, recursion, and algorithmic thinking."
+    },
+    mysql: {
+        title: "MySQL",
+        text: "Database design, relationships, queries, joins, and data-driven applications."
+    },
+    php: {
+        title: "PHP",
+        text: "Backend scripting, form handling, authentication, and database connectivity."
+    },
+    backend: {
+    title: "Backend Developer",
+    text: "Focused on building reliable server-side logic, APIs, and database-driven systems."
+    },
+    system: {
+        title: "System Thinker",
+        text: "I think in terms of systems, flows, and architecture rather than isolated features."
+    },
+    problem: {
+        title: "Problem Solver",
+        text: "I enjoy breaking down problems, understanding constraints, and building logical solutions."
+    }
+};
+
+document.querySelectorAll(".cloud").forEach(cloud => {
+    cloud.addEventListener("click", () => {
+        const key = cloud.dataset.content;
+        const data = contentData[key];
+
+        modalContent.innerHTML = `
+            <h2>${data.title}</h2>
+            <p>${data.text}</p>
+        `;
+
+        modal.classList.add("active");
+    });
+});
+
+function closeModal() {
+    modal.classList.remove("active");
+}
+
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeModal();
+});
+
+modal.addEventListener("click", e => {
+    if (e.target === modal) closeModal();
+});
+</script>
+
+<a href="projects.html" class="go-projects">
+    Explore Installed Modules →
+</a>
+
+<script>
+    const themeBtn = document.querySelector(".theme-toggle");
+
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("night");
+        document.body.classList.toggle("day");
+
+        // Optional: change icon
+        themeBtn.textContent =
+            document.body.classList.contains("night") ? "☀️" : "🌙";
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+/* =======================
+   GLOBAL RESET + FONT
+======================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Courier New", monospace;
+}
+
+:root {
+    --accent: #00ffcc;
+    --bg-dark: rgba(0, 0, 0, 0.65);
+}
+
+/* =======================
+   BODY + BACKGROUND
+======================= */
+body {
+    height: 100vh;
+    color: #fff;
+    overflow: hidden;
+    background: #000;
+}
+
+/* Live video wallpaper */
+#bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -3;
+    filter: brightness(0.7) contrast(1.1);
+}
+
+/* Cinematic overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-dark);
+    backdrop-filter: blur(4px);
+    z-index: -2;
+}
+
+/* Scanline effect (very subtle) */
+.overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03),
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* =======================
+   MAIN CONTAINER
+======================= */
+.boot-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    animation: fadeIn 1.2s ease-out forwards;
+}
+
+/* =======================
+   TITLE + TEXT
+======================= */
+.title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    letter-spacing: 6px;
+    text-shadow:
+        0 0 10px rgba(0,255,204,0.4),
+        0 0 30px rgba(0,255,204,0.2);
+    animation: glowPulse 3s infinite ease-in-out;
+}
+
+.title span {
+    color: var(--accent);
+}
+
+.subtitle {
+    margin-top: 18px;
+    font-size: 0.95rem;
+    opacity: 0.85;
+    animation: flicker 4s infinite;
+}
+
+/* =======================
+   BUTTONS
+======================= */
+.buttons {
+    margin-top: 45px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    position: relative;
+    text-decoration: none;
+    padding: 14px 34px;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+/* Button glow layer */
+.btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.btn.primary {
+    background: var(--accent);
+    color: #000;
+    font-weight: bold;
+}
+
+.btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 25px rgba(0,255,204,0.7);
+}
+
+.btn:hover::before {
+    opacity: 0.15;
+}
+
+/* =======================
+   FOOTER HINT
+======================= */
+.hint {
+    position: absolute;
+    bottom: 30px;
+    font-size: 0.85rem;
+    opacity: 0.6;
+    animation: pulse 2s infinite;
+}
+
+/* =======================
+   ANIMATIONS
+======================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        text-shadow:
+            0 0 10px rgba(0,255,204,0.4),
+            0 0 30px rgba(0,255,204,0.2);
+    }
+    50% {
+        text-shadow:
+            0 0 20px rgba(0,255,204,0.8),
+            0 0 50px rgba(0,255,204,0.4);
+    }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 0.85; }
+    97% { opacity: 0.85; }
+    98% { opacity: 0.4; }
+    99% { opacity: 0.85; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.9; }
+}
+
+/* =======================
+   ACCESSIBILITY
+======================= */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+.boot-logs {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    opacity: 0.75;
+    line-height: 1.6;
+    min-height: 80px;
+}
+
+/* Locked buttons */
+.buttons.locked {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* Enter key glow (activated later) */
+.system-ready .btn.primary {
+    animation: enterGlow 1.5s infinite;
+}
+
+@keyframes enterGlow {
+    0% {
+        box-shadow: 0 0 10px rgba(0,255,204,0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0,255,204,1);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0,255,204,0.4);
+    }
+}
